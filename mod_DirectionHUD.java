@@ -42,12 +42,12 @@ public class mod_DirectionHUD extends BaseMod
     private String versionURL = "https://dl.dropbox.com/u/20748481/Minecraft/1.3.1/directionHUD.version";
     private String mcfTopic = "http://www.minecraftforum.net/topic/1114612-";
     
-	public mod_DirectionHUD() 
-	{
+    public mod_DirectionHUD() 
+    {
         ModLoader.setInGameHook(this, true, false);
         versionChecker = new ModVersionChecker(getName(), getVersion(), versionURL, mcfTopic, ModLoader.getLogger());
         checkUpdate = allowUpdateCheck;
-	}
+    }
 
     @Override
     public String getName() 
@@ -55,23 +55,23 @@ public class mod_DirectionHUD extends BaseMod
         return "DirectionHUD";
     }
 
-	@Override
-	public String getVersion() 
-	{
-		return "v1.52(1.3.2)";
-	}
+    @Override
+    public String getVersion() 
+    {
+        return "v1.52(1.3.2)";
+    }
 
-	@Override
-	public void load() 
-	{
+    @Override
+    public void load() 
+    {
         versionChecker.checkVersionWithLogging();
     }
 
     @Override
-	public boolean onTickInGame(float f, Minecraft mc)
-	{
-		if((mc.inGameHasFocus || mc.currentScreen == null || (mc.currentScreen instanceof GuiChat && showInChat)) 
-		        && !mc.gameSettings.showDebugInfo && !mc.gameSettings.keyBindPlayerList.pressed)
+    public boolean onTickInGame(float f, Minecraft mc)
+    {
+        if((mc.inGameHasFocus || mc.currentScreen == null || (mc.currentScreen instanceof GuiChat && showInChat)) 
+                && !mc.gameSettings.showDebugInfo && !mc.gameSettings.keyBindPlayerList.pressed)
         {
             scaledResolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
             displayHUD(mc);
@@ -84,8 +84,8 @@ public class mod_DirectionHUD extends BaseMod
                     mc.thePlayer.addChatMessage(msg);
             checkUpdate = false;
         }
-		return true;
-	}
+        return true;
+    }
 
     private int getX(int width)
     {
@@ -99,19 +99,19 @@ public class mod_DirectionHUD extends BaseMod
 
     private int getY(int rowCount, int height)
     {
-    	if(alignMode.equalsIgnoreCase("middleleft") || alignMode.equalsIgnoreCase("middlecenter") || alignMode.equalsIgnoreCase("middleright"))
-    		return (scaledResolution.getScaledHeight()/2) - ((rowCount * height)/2) + (applyYOffsetToMiddle ? yOffset : 0);
-    	else if(alignMode.equalsIgnoreCase("bottomleft") || alignMode.equalsIgnoreCase("bottomright"))
-    		return scaledResolution.getScaledHeight() - (rowCount * height) - yOffset;
-    	else if(alignMode.equalsIgnoreCase("bottomcenter"))
-    		return scaledResolution.getScaledHeight() - (rowCount * height) - yOffsetBottomCenter;
-    	else
-    		return yOffset;
+        if(alignMode.equalsIgnoreCase("middleleft") || alignMode.equalsIgnoreCase("middlecenter") || alignMode.equalsIgnoreCase("middleright"))
+            return (scaledResolution.getScaledHeight()/2) - ((rowCount * height)/2) + (applyYOffsetToMiddle ? yOffset : 0);
+        else if(alignMode.equalsIgnoreCase("bottomleft") || alignMode.equalsIgnoreCase("bottomright"))
+            return scaledResolution.getScaledHeight() - (rowCount * height) - yOffset;
+        else if(alignMode.equalsIgnoreCase("bottomcenter"))
+            return scaledResolution.getScaledHeight() - (rowCount * height) - yOffsetBottomCenter;
+        else
+            return yOffset;
     }
-	
-	private void displayHUD(Minecraft mc)
+    
+    private void displayHUD(Minecraft mc)
     {
-		int direction = MathHelper.floor_double((double)((mc.thePlayer.rotationYaw * 256F) / 360F) + 0.5D) & 255;
+        int direction = MathHelper.floor_double((double)((mc.thePlayer.rotationYaw * 256F) / 360F) + 0.5D) & 255;
         int guiTexture = mc.renderEngine.getTexture("/gui/compass.png");
 
         int yBase = getY(1,12);
