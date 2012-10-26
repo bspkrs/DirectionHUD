@@ -1,2 +1,3 @@
-TreeCapitator-FML
+DirectionHUD
 =================
+DirectionHUD ModLoader class
