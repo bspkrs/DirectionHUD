@@ -24,6 +24,10 @@ public class mod_DirectionHUD extends BaseMod
     public static String alignMode = "topcenter";
     @MLProp(info="Valid color values are 0-9, a-f (color values can be found here: http://www.minecraftwiki.net/wiki/File:Colors.png)")
     public static String markerColor = "c";
+    @MLProp(info="The filename of the compass PNG image file. The file must be located in the /gui/ folder of the DirectionHUD zip file or minecraft.jar.")
+    public static String imageFileName = "compass.png";    
+    @MLProp(info="Index of the selected compass in the compass image file starting at 0. Up to 10 compasses can fit in the image (10 would be index 9). Each compass is 24 pixels tall (two lines of height 12).", min=0, max=9)
+    public static int compassIndex = 0;    
     @MLProp(info="Horizontal offset from the edge of the screen (when using right alignments the x offset is relative to the right edge of the screen)")
     public static int xOffset = 2;
     @MLProp(info="Vertical offset from the edge of the screen (when using bottom alignments the y offset is relative to the bottom edge of the screen)")
@@ -58,7 +62,7 @@ public class mod_DirectionHUD extends BaseMod
     @Override
     public String getVersion() 
     {
-        return "v1.6(1.4.2)";
+        return "v1.7(1.4.2)";
     }
 
     @Override
@@ -112,7 +116,7 @@ public class mod_DirectionHUD extends BaseMod
     private void displayHUD(Minecraft mc)
     {
         int direction = MathHelper.floor_double((double)((mc.thePlayer.rotationYaw * 256F) / 360F) + 0.5D) & 255;
-        int guiTexture = mc.renderEngine.getTexture("/gui/compass.png");
+        int guiTexture = mc.renderEngine.getTexture("/gui/" + imageFileName);
 
         int yBase = getY(1,12);
 
@@ -120,9 +124,9 @@ public class mod_DirectionHUD extends BaseMod
         mc.renderEngine.bindTexture(guiTexture);
         int xBase = getX(65);
         if(direction < 128)
-            HUDUtils.drawTexturedModalRect(xBase, yBase, direction, 0, 65, 12, zLevel);
+            HUDUtils.drawTexturedModalRect(xBase, yBase, direction, (compassIndex * 24), 65, 12, zLevel);
         else
-            HUDUtils.drawTexturedModalRect(xBase, yBase, direction-128, 12, 65, 12, zLevel);
+            HUDUtils.drawTexturedModalRect(xBase, yBase, direction-128, (compassIndex * 24) + 12, 65, 12, zLevel);
         mc.fontRenderer.drawString("\247" + markerColor.toLowerCase() + "|", xBase + 32, yBase+1, 0xffffff);
         mc.fontRenderer.drawString("\247" + markerColor.toLowerCase() + "|", xBase + 32, yBase+5, 0xffffff);
     }
