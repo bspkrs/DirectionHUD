@@ -48,7 +48,6 @@ public class mod_DirectionHUD extends BaseMod
     
     public mod_DirectionHUD() 
     {
-        ModLoader.setInGameHook(this, true, false);
         versionChecker = new ModVersionChecker(getName(), getVersion(), versionURL, mcfTopic, ModLoader.getLogger());
         checkUpdate = allowUpdateCheck;
     }
@@ -62,13 +61,14 @@ public class mod_DirectionHUD extends BaseMod
     @Override
     public String getVersion() 
     {
-        return "v1.7(1.4.2)";
+        return "v1.8(1.4.2)";
     }
 
     @Override
     public void load() 
     {
         versionChecker.checkVersionWithLogging();
+        ModLoader.setInGameHook(this, true, false);
     }
 
     @Override
