@@ -43,7 +43,7 @@ public class mod_DirectionHUD extends BaseMod
     
     private boolean checkUpdate;
     private ModVersionChecker versionChecker;
-    private String versionURL = "https://dl.dropbox.com/u/20748481/Minecraft/1.4.2/directionHUD.version";
+    private String versionURL = "https://dl.dropbox.com/u/20748481/Minecraft/1.4.4/directionHUD.version";
     private String mcfTopic = "http://www.minecraftforum.net/topic/1114612-";
     
     public mod_DirectionHUD() 
@@ -61,7 +61,7 @@ public class mod_DirectionHUD extends BaseMod
     @Override
     public String getVersion() 
     {
-        return "v1.8(1.4.2)";
+        return "v1.8(1.4.4)";
     }
 
     @Override
