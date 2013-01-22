@@ -7,8 +7,8 @@ import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
 
+import bspkrs.client.util.HUDUtils;
 import bspkrs.util.ModVersionChecker;
-import bspkrs.util.client.HUDUtils;
 
 public class mod_DirectionHUD extends BaseMod
 {
@@ -56,7 +56,7 @@ public class mod_DirectionHUD extends BaseMod
     @Override
     public String getVersion()
     {
-        return "v1.8(1.4.6)";
+        return "v1.9(1.4.6)";
     }
     
     @Override
@@ -123,7 +123,7 @@ public class mod_DirectionHUD extends BaseMod
             HUDUtils.drawTexturedModalRect(xBase, yBase, direction, (compassIndex * 24), 65, 12, zLevel);
         else
             HUDUtils.drawTexturedModalRect(xBase, yBase, direction - 128, (compassIndex * 24) + 12, 65, 12, zLevel);
-        mc.fontRenderer.drawString("\247" + markerColor.toLowerCase() + "|", xBase + 32, yBase + 1, 0xffffff);
-        mc.fontRenderer.drawString("\247" + markerColor.toLowerCase() + "|", xBase + 32, yBase + 5, 0xffffff);
+        mc.fontRenderer.drawString("\247" + markerColor.toLowerCase() + "|\247r", xBase + 32, yBase + 1, 0xffffff);
+        mc.fontRenderer.drawString("\247" + markerColor.toLowerCase() + "|\247r", xBase + 32, yBase + 5, 0xffffff);
     }
 }
