@@ -14,8 +14,6 @@ public class mod_DirectionHUD extends BaseMod
 {
     protected float           zLevel               = 0.0F;
     private ScaledResolution  scaledResolution;
-    @MLProp(info = "Set to true to allow checking for mod updates, false to disable")
-    public static boolean     allowUpdateCheck     = true;
     @MLProp(info = "Valid alignment strings are topleft, topcenter, topright, middleleft, middlecenter, middleright, bottomleft, bottomcenter, bottomright")
     public static String      alignMode            = "topcenter";
     @MLProp(info = "Valid color values are 0-9, a-f (color values can be found here: http://www.minecraftwiki.net/wiki/File:Colors.png)")
@@ -38,11 +36,13 @@ public class mod_DirectionHUD extends BaseMod
     public static boolean     showInChat           = true;
     
     private ModVersionChecker versionChecker;
+    private boolean           allowUpdateCheck;
     private final String      versionURL           = "https://dl.dropbox.com/u/20748481/Minecraft/1.4.6/directionHUD.version";
     private final String      mcfTopic             = "http://www.minecraftforum.net/topic/1114612-";
     
     public mod_DirectionHUD()
     {
+        allowUpdateCheck = mod_bspkrsCore.allowUpdateCheck;
         if (allowUpdateCheck)
             versionChecker = new ModVersionChecker(getName(), getVersion(), versionURL, mcfTopic, ModLoader.getLogger());
     }
@@ -56,7 +56,13 @@ public class mod_DirectionHUD extends BaseMod
     @Override
     public String getVersion()
     {
-        return "v1.9(1.4.6)";
+        return "v1.10(1.4.6)";
+    }
+    
+    @Override
+    public String getPriorities()
+    {
+        return "after:mod_bspkrsCore";
     }
     
     @Override
