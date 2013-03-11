@@ -118,12 +118,11 @@ public class mod_DirectionHUD extends BaseMod
     private void displayHUD(Minecraft mc)
     {
         int direction = MathHelper.floor_double(((mc.thePlayer.rotationYaw * 256F) / 360F) + 0.5D) & 255;
-        int guiTexture = mc.renderEngine.getTexture("/gui/" + imageFileName);
         
         int yBase = getY(1, 12);
         
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.bindTexture(guiTexture);
+        mc.renderEngine.func_98187_b("/gui/" + imageFileName);
         int xBase = getX(65);
         if (direction < 128)
             HUDUtils.drawTexturedModalRect(xBase, yBase, direction, (compassIndex * 24), 65, 12, zLevel);
