@@ -83,8 +83,12 @@ public class mod_DirectionHUD extends BaseMod
     {
         if ((mc.inGameHasFocus || mc.currentScreen == null || (mc.currentScreen instanceof GuiChat && showInChat)) && !mc.gameSettings.showDebugInfo && !mc.gameSettings.keyBindPlayerList.pressed)
         {
+            GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+            mc.renderEngine.resetBoundTexture();
             scaledResolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
             displayHUD(mc);
+            GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+            mc.renderEngine.resetBoundTexture();
         }
         
         if (allowUpdateCheck)
@@ -93,7 +97,9 @@ public class mod_DirectionHUD extends BaseMod
                 for (String msg : versionChecker.getInGameMessage())
                     mc.thePlayer.addChatMessage(msg);
             allowUpdateCheck = false;
+            GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         }
+        
         return true;
     }
     
@@ -124,9 +130,6 @@ public class mod_DirectionHUD extends BaseMod
         int direction = MathHelper.floor_double(((mc.thePlayer.rotationYaw * 256F) / 360F) + 0.5D) & 255;
         
         int yBase = getY(1, 12);
-        
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.bindTexture("/gui/" + imageFileName);
         int xBase = getX(65);
         
         if (direction < 128)
@@ -134,8 +137,7 @@ public class mod_DirectionHUD extends BaseMod
         else
             HUDUtils.drawTexturedModalRect(xBase, yBase, direction - 128, (compassIndex * 24) + 12, 65, 12, zLevel);
         
-        GL11.glBindTexture(3553, mc.renderEngine.getTexture("/font/default.png"));
-        mc.fontRenderer.drawString("\247" + markerColor.toLowerCase() + "|\247r", xBase + 32, yBase + 1, 0xffffff);
-        mc.fontRenderer.drawString("\247" + markerColor.toLowerCase() + "|\247r", xBase + 32, yBase + 5, 0xffffff);
+        mc.fontRenderer.drawString("\247" + markerColor.toLowerCase() + "|", xBase + 32, yBase + 1, 0xffffff);
+        mc.fontRenderer.drawString("\247" + markerColor.toLowerCase() + "|", xBase + 32, yBase + 5, 0xffffff);
     }
 }
