@@ -14,7 +14,7 @@ import bspkrs.util.ModVersionChecker;
 
 public class mod_DirectionHUD extends BaseMod
 {
-    protected float           zLevel               = 0.0F;
+    protected float           zLevel               = -100.0F;
     private ScaledResolution  scaledResolution;
     @BSProp(info = "Valid alignment strings are topleft, topcenter, topright, middleleft, middlecenter, middleright, bottomleft, bottomcenter, bottomright")
     public static String      alignMode            = "topcenter";
@@ -56,7 +56,7 @@ public class mod_DirectionHUD extends BaseMod
     @Override
     public String getVersion()
     {
-        return "v1.11(1.5.1)";
+        return "v1.13(1.5.1)";
     }
     
     @Override
@@ -71,8 +71,8 @@ public class mod_DirectionHUD extends BaseMod
         allowUpdateCheck = mod_bspkrsCore.allowUpdateCheck;
         if (allowUpdateCheck)
         {
-            versionChecker.checkVersionWithLogging();
             versionChecker = new ModVersionChecker(getName(), getVersion(), versionURL, mcfTopic);
+            versionChecker.checkVersionWithLogging();
         }
         
         ModLoader.setInGameHook(this, true, false);
@@ -132,12 +132,14 @@ public class mod_DirectionHUD extends BaseMod
         int yBase = getY(1, 12);
         int xBase = getX(65);
         
+        mc.renderEngine.bindTexture("/gui/" + imageFileName);
         if (direction < 128)
             HUDUtils.drawTexturedModalRect(xBase, yBase, direction, (compassIndex * 24), 65, 12, zLevel);
         else
             HUDUtils.drawTexturedModalRect(xBase, yBase, direction - 128, (compassIndex * 24) + 12, 65, 12, zLevel);
         
+        mc.renderEngine.resetBoundTexture();
         mc.fontRenderer.drawString("\247" + markerColor.toLowerCase() + "|", xBase + 32, yBase + 1, 0xffffff);
-        mc.fontRenderer.drawString("\247" + markerColor.toLowerCase() + "|", xBase + 32, yBase + 5, 0xffffff);
+        mc.fontRenderer.drawString("\247" + markerColor.toLowerCase() + "|\247r", xBase + 32, yBase + 5, 0xffffff);
     }
 }
