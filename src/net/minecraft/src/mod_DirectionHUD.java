@@ -10,6 +10,7 @@ import org.lwjgl.opengl.GL11;
 import bspkrs.client.util.HUDUtils;
 import bspkrs.util.BSProp;
 import bspkrs.util.BSPropRegistry;
+import bspkrs.util.Const;
 import bspkrs.util.ModVersionChecker;
 
 public class mod_DirectionHUD extends BaseMod
@@ -39,7 +40,7 @@ public class mod_DirectionHUD extends BaseMod
     
     private ModVersionChecker versionChecker;
     private boolean           allowUpdateCheck;
-    private final String      versionURL           = "http://bspk.rs/Minecraft/1.5.1/directionHUD.version";
+    private final String      versionURL           = "http://bspk.rs/Minecraft/" + Const.MCVERSION + "/directionHUD.version";
     private final String      mcfTopic             = "http://www.minecraftforum.net/topic/1114612-";
     
     public mod_DirectionHUD()
@@ -56,7 +57,7 @@ public class mod_DirectionHUD extends BaseMod
     @Override
     public String getVersion()
     {
-        return "v1.13(1.5.1)";
+        return "v1.13(" + Const.MCVERSION + ")";
     }
     
     @Override
