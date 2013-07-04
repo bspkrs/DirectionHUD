@@ -3,6 +3,7 @@ package net.minecraft.src;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
@@ -57,7 +58,7 @@ public class mod_DirectionHUD extends BaseMod
     @Override
     public String getVersion()
     {
-        return "v1.13(" + Const.MCVERSION + ")";
+        return "v1.14(" + Const.MCVERSION + ")";
     }
     
     @Override
@@ -85,11 +86,11 @@ public class mod_DirectionHUD extends BaseMod
         if ((mc.inGameHasFocus || mc.currentScreen == null || (mc.currentScreen instanceof GuiChat && showInChat)) && !mc.gameSettings.showDebugInfo && !mc.gameSettings.keyBindPlayerList.pressed)
         {
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-            mc.renderEngine.resetBoundTexture();
+            //mc.renderEngine.resetBoundTexture();
             scaledResolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
             displayHUD(mc);
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-            mc.renderEngine.resetBoundTexture();
+            //mc.renderEngine.resetBoundTexture();
         }
         
         if (allowUpdateCheck)
@@ -133,13 +134,14 @@ public class mod_DirectionHUD extends BaseMod
         int yBase = getY(1, 12);
         int xBase = getX(65);
         
-        mc.renderEngine.bindTexture("/gui/" + imageFileName);
+        // bindTexture()
+        mc.renderEngine.func_110577_a(new ResourceLocation("/textures/gui/" + imageFileName));
         if (direction < 128)
             HUDUtils.drawTexturedModalRect(xBase, yBase, direction, (compassIndex * 24), 65, 12, zLevel);
         else
             HUDUtils.drawTexturedModalRect(xBase, yBase, direction - 128, (compassIndex * 24) + 12, 65, 12, zLevel);
         
-        mc.renderEngine.resetBoundTexture();
+        //mc.renderEngine.resetBoundTexture();
         mc.fontRenderer.drawString("\247" + markerColor.toLowerCase() + "|", xBase + 32, yBase + 1, 0xffffff);
         mc.fontRenderer.drawString("\247" + markerColor.toLowerCase() + "|\247r", xBase + 32, yBase + 5, 0xffffff);
     }
