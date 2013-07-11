@@ -3,8 +3,8 @@ package net.minecraft.src;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -41,7 +41,7 @@ public class mod_DirectionHUD extends BaseMod
     
     private ModVersionChecker versionChecker;
     private boolean           allowUpdateCheck;
-    private final String      versionURL           = "http://bspk.rs/Minecraft/" + Const.MCVERSION + "/directionHUD.version";
+    private final String      versionURL           = Const.VERSION_URL + "/Minecraft/" + Const.MCVERSION + "/directionHUD.version";
     private final String      mcfTopic             = "http://www.minecraftforum.net/topic/1114612-";
     
     public mod_DirectionHUD()
@@ -134,8 +134,9 @@ public class mod_DirectionHUD extends BaseMod
         int yBase = getY(1, 12);
         int xBase = getX(65);
         
-        // bindTexture()
-        mc.renderEngine.func_110577_a(new ResourceLocation("/textures/gui/" + imageFileName));
+        // func_110434_K = getTextureManager()
+        // func_110577_a = bindTexture()
+        mc.func_110434_K().func_110577_a(new ResourceLocation("textures/gui/" + imageFileName));
         if (direction < 128)
             HUDUtils.drawTexturedModalRect(xBase, yBase, direction, (compassIndex * 24), 65, 12, zLevel);
         else
