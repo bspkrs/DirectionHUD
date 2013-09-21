@@ -136,7 +136,7 @@ public class mod_DirectionHUD extends BaseMod
         
         // func_110434_K = getTextureManager()
         // func_110577_a = bindTexture()
-        mc.func_110434_K().func_110577_a(new ResourceLocation("textures/gui/" + imageFileName));
+        mc.getTextureManager().bindTexture(new ResourceLocation("textures/gui/" + imageFileName));
         if (direction < 128)
             HUDUtils.drawTexturedModalRect(xBase, yBase, direction, (compassIndex * 24), 65, 12, zLevel);
         else
