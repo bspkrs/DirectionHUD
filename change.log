@@ -1,3 +1,5 @@
+v1.16 (21-Oct-2013)
+- fixed min values for offsets
 v1.15 (16-Oct-2013)
 - ported mod to Forge
 - removed filename config option
