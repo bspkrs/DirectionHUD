@@ -1,6 +1,6 @@
 {
   "modListVersion": 2,
-  "modlist": [{
+  "modList": [{
     "modid": "DirectionHUD",
     "name": "DirectionHUD",
     "description": "Provides a HUD with your magnetic compass heading.",
