@@ -1,0 +1,21 @@
+{
+  "modListVersion": 2,
+  "modlist": [{
+    "modid": "DirectionHUD",
+    "name": "DirectionHUD",
+    "description": "Provides a HUD with your magnetic compass heading.",
+    "version": "${mod_version}",
+    "mcversion": "${minecraft_version}",
+    "url": "http://www.minecraftforum.net/topic/1114612-/",
+    "updateUrl": "",
+    "authorList": [ "bspkrs" ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [  ],
+    "parent": "",
+    "requiredMods": [ "bspkrsCore" ],
+    "dependencies": [ "bspkrsCore" ],
+    "dependants": [  ],
+    "useDependencyInformation": "true"
+  }]
+}
