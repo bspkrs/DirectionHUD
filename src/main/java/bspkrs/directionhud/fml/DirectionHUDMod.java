@@ -1,21 +1,17 @@
 package bspkrs.directionhud.fml;
 
-import java.util.EnumSet;
-
 import bspkrs.bspkrscore.fml.bspkrsCoreMod;
 import bspkrs.directionhud.DirectionHUD;
 import bspkrs.util.Const;
 import bspkrs.util.ModVersionChecker;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.Mod.Metadata;
 import cpw.mods.fml.common.ModMetadata;
-import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = "DirectionHUD", name = "DirectionHUD", version = DirectionHUD.VERSION_NUMBER, dependencies = "required-after:bspkrsCore", useMetadata = true)
 public class DirectionHUDMod
@@ -46,7 +42,7 @@ public class DirectionHUDMod
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-        TickRegistry.registerTickHandler(new DHGameTicker(EnumSet.of(TickType.CLIENT)), Side.CLIENT);
-        TickRegistry.registerTickHandler(new DHRenderTicker(EnumSet.of(TickType.RENDER)), Side.CLIENT);
+        FMLCommonHandler.instance().bus().register(new DHGameTicker());
+        FMLCommonHandler.instance().bus().register(new DHRenderTicker());
     }
 }

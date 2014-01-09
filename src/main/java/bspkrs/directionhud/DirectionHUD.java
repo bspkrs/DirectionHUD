@@ -7,17 +7,18 @@ import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.config.Configuration;
 
 import org.lwjgl.opengl.GL11;
 
 import bspkrs.client.util.HUDUtils;
+import bspkrs.util.BSConfiguration;
 import bspkrs.util.CommonUtils;
-import bspkrs.util.Configuration;
 import bspkrs.util.Const;
 
 public class DirectionHUD
 {
-    public static final String      VERSION_NUMBER       = "v1.16(" + Const.MCVERSION + ")";
+    public static final String      VERSION_NUMBER       = "v1.17(" + Const.MCVERSION + ")";
     
     protected static float          zLevel               = -100.0F;
     private static ScaledResolution scaledResolution;
@@ -33,7 +34,7 @@ public class DirectionHUD
     public static boolean           applyYOffsetToMiddle = false;
     public static boolean           showInChat           = true;
     
-    private static Configuration    config;
+    private static BSConfiguration  config;
     
     public static void loadConfig(File file)
     {
@@ -45,7 +46,7 @@ public class DirectionHUD
           //                file.delete();
         }
         
-        config = new Configuration(file);
+        config = new BSConfiguration(file);
         
         config.load();
         
@@ -73,7 +74,7 @@ public class DirectionHUD
     
     public static boolean onTickInGame(Minecraft mc)
     {
-        if ((mc.inGameHasFocus || mc.currentScreen == null || (mc.currentScreen instanceof GuiChat && showInChat)) && !mc.gameSettings.showDebugInfo && !mc.gameSettings.keyBindPlayerList.pressed)
+        if ((mc.inGameHasFocus || mc.currentScreen == null || (mc.currentScreen instanceof GuiChat && showInChat)) && !mc.gameSettings.showDebugInfo && !mc.gameSettings.keyBindPlayerList.func_151470_d())
         {
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
             scaledResolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
@@ -113,8 +114,6 @@ public class DirectionHUD
         int yBase = getY(1, 12);
         int xBase = getX(65);
         
-        // func_110434_K = getTextureManager()
-        // func_110577_a = bindTexture()
         mc.getTextureManager().bindTexture(new ResourceLocation("DirectionHUD:textures/gui/compass.png"));
         if (direction < 128)
             HUDUtils.drawTexturedModalRect(xBase, yBase, direction, (compassIndex * 24), 65, 12, zLevel);
