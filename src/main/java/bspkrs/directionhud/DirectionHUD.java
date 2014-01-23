@@ -12,13 +12,14 @@ import net.minecraftforge.common.config.Configuration;
 import org.lwjgl.opengl.GL11;
 
 import bspkrs.client.util.HUDUtils;
+import bspkrs.directionhud.fml.DirectionHUDMod;
 import bspkrs.util.BSConfiguration;
 import bspkrs.util.CommonUtils;
 import bspkrs.util.Const;
 
 public class DirectionHUD
 {
-    public static final String      VERSION_NUMBER       = "v1.17(" + Const.MCVERSION + ")";
+    public static final String      VERSION_NUMBER       = "v1.18(" + Const.MCVERSION + ")";
     
     protected static float          zLevel               = -100.0F;
     private static ScaledResolution scaledResolution;
@@ -74,7 +75,8 @@ public class DirectionHUD
     
     public static boolean onTickInGame(Minecraft mc)
     {
-        if ((mc.inGameHasFocus || mc.currentScreen == null || (mc.currentScreen instanceof GuiChat && showInChat)) && !mc.gameSettings.showDebugInfo && !mc.gameSettings.keyBindPlayerList.func_151470_d())
+        if (DirectionHUDMod.instance.isEnabled() && (mc.inGameHasFocus || mc.currentScreen == null || (mc.currentScreen instanceof GuiChat && showInChat))
+                && !mc.gameSettings.showDebugInfo && !mc.gameSettings.keyBindPlayerList.func_151470_d())
         {
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
             scaledResolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);

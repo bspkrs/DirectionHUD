@@ -20,6 +20,8 @@ public class DirectionHUDMod
     private final String          versionURL = Const.VERSION_URL + "/Minecraft/" + Const.MCVERSION + "/directionHUD.version";
     private final String          mcfTopic   = "http://www.minecraftforum.net/topic/1114612-";
     
+    private boolean               isEnabled  = true;
+    
     @Metadata(value = "DirectionHUD")
     public static ModMetadata     metadata;
     
@@ -44,5 +46,15 @@ public class DirectionHUDMod
     {
         FMLCommonHandler.instance().bus().register(new DHGameTicker());
         FMLCommonHandler.instance().bus().register(new DHRenderTicker());
+    }
+    
+    public void setEnabled(boolean bol)
+    {
+        isEnabled = bol;
+    }
+    
+    public boolean isEnabled()
+    {
+        return isEnabled;
     }
 }
