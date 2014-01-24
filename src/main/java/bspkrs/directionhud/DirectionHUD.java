@@ -19,7 +19,7 @@ import bspkrs.util.Const;
 
 public class DirectionHUD
 {
-    public static final String      VERSION_NUMBER       = "v1.18(" + Const.MCVERSION + ")";
+    public static final String      VERSION_NUMBER       = "1.18(" + Const.MCVERSION + ")";
     
     protected static float          zLevel               = -100.0F;
     private static ScaledResolution scaledResolution;
