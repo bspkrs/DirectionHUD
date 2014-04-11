@@ -7,19 +7,18 @@ import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.config.Configuration;
 
 import org.lwjgl.opengl.GL11;
 
 import bspkrs.client.util.HUDUtils;
 import bspkrs.directionhud.fml.DirectionHUDMod;
-import bspkrs.util.BSConfiguration;
 import bspkrs.util.CommonUtils;
 import bspkrs.util.Const;
+import bspkrs.util.config.Configuration;
 
 public class DirectionHUD
 {
-    public static final String      VERSION_NUMBER       = "1.18(" + Const.MCVERSION + ")";
+    public static final String      VERSION_NUMBER       = "1.19(" + Const.MCVERSION + ")";
     
     protected static float          zLevel               = -100.0F;
     private static ScaledResolution scaledResolution;
@@ -35,7 +34,7 @@ public class DirectionHUD
     public static boolean           applyYOffsetToMiddle = false;
     public static boolean           showInChat           = true;
     
-    private static BSConfiguration  config;
+    private static Configuration    config;
     
     public static void loadConfig(File file)
     {
@@ -47,7 +46,7 @@ public class DirectionHUD
           //                file.delete();
         }
         
-        config = new BSConfiguration(file);
+        config = new Configuration(file);
         
         config.load();
         
