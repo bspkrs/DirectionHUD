@@ -1,6 +1,8 @@
 package bspkrs.directionhud.fml;
 
+import net.minecraftforge.client.ClientCommandHandler;
 import bspkrs.bspkrscore.fml.bspkrsCoreMod;
+import bspkrs.directionhud.CommandDirectionHUD;
 import bspkrs.directionhud.DirectionHUD;
 import bspkrs.util.Const;
 import bspkrs.util.ModVersionChecker;
@@ -13,14 +15,13 @@ import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = "DirectionHUD", name = "DirectionHUD", version = DirectionHUD.VERSION_NUMBER, dependencies = "required-after:bspkrsCore", useMetadata = true)
+@Mod(modid = "DirectionHUD", name = "DirectionHUD", version = DirectionHUD.VERSION_NUMBER, dependencies = "required-after:bspkrsCore", useMetadata = true,
+        guiFactory = "bspkrs.directionhud.fml.gui.ModGuiFactoryHandler")
 public class DirectionHUDMod
 {
     protected ModVersionChecker   versionChecker;
     private final String          versionURL = Const.VERSION_URL + "/Minecraft/" + Const.MCVERSION + "/directionHUD.version";
     private final String          mcfTopic   = "http://www.minecraftforum.net/topic/1114612-";
-    
-    private boolean               isEnabled  = true;
     
     @Metadata(value = "DirectionHUD")
     public static ModMetadata     metadata;
@@ -46,15 +47,10 @@ public class DirectionHUDMod
     {
         FMLCommonHandler.instance().bus().register(new DHGameTicker());
         FMLCommonHandler.instance().bus().register(new DHRenderTicker());
-    }
-    
-    public void setEnabled(boolean bol)
-    {
-        isEnabled = bol;
-    }
-    
-    public boolean isEnabled()
-    {
-        return isEnabled;
+        
+        if (event.getSide().isClient())
+        {
+            ClientCommandHandler.instance.registerCommand(new CommandDirectionHUD());
+        }
     }
 }

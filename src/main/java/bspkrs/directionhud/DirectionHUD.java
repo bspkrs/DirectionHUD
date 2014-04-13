@@ -11,34 +11,49 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import bspkrs.client.util.HUDUtils;
-import bspkrs.directionhud.fml.DirectionHUDMod;
 import bspkrs.util.CommonUtils;
 import bspkrs.util.Const;
 import bspkrs.util.config.Configuration;
 
 public class DirectionHUD
 {
-    public static final String      VERSION_NUMBER       = "1.19(" + Const.MCVERSION + ")";
+    public static final String      VERSION_NUMBER              = "1.19(" + Const.MCVERSION + ")";
     
-    protected static float          zLevel               = -100.0F;
+    protected static float          zLevel                      = -100.0F;
     private static ScaledResolution scaledResolution;
     
     // Config fields
-    public static String            alignMode            = "topcenter";
-    public static String            markerColor          = "c";
-    public static int               compassIndex         = 0;
-    public static int               xOffset              = 2;
-    public static int               yOffset              = 2;
-    public static int               yOffsetBottomCenter  = 41;
-    public static boolean           applyXOffsetToCenter = false;
-    public static boolean           applyYOffsetToMiddle = false;
-    public static boolean           showInChat           = true;
+    private final static boolean    enabledDefault              = true;
+    public static boolean           enabled                     = enabledDefault;
+    private final static String     alignModeDefault            = "topcenter";
+    public static String            alignMode                   = alignModeDefault;
+    private final static String     markerColorDefault          = "c";
+    public static String            markerColor                 = markerColorDefault;
+    private final static int        compassIndexDefault         = 0;
+    public static int               compassIndex                = compassIndexDefault;
+    private final static int        xOffsetDefault              = 2;
+    public static int               xOffset                     = xOffsetDefault;
+    private final static int        yOffsetDefault              = 2;
+    public static int               yOffset                     = yOffsetDefault;
+    private final static int        yOffsetBottomCenterDefault  = 41;
+    public static int               yOffsetBottomCenter         = yOffsetBottomCenterDefault;
+    private final static boolean    applyXOffsetToCenterDefault = false;
+    public static boolean           applyXOffsetToCenter        = applyXOffsetToCenterDefault;
+    private final static boolean    applyYOffsetToMiddleDefault = false;
+    public static boolean           applyYOffsetToMiddle        = applyYOffsetToMiddleDefault;
+    private final static boolean    showInChatDefault           = true;
+    public static boolean           showInChat                  = showInChatDefault;
     
     private static Configuration    config;
     
+    public static Configuration getConfig()
+    {
+        return config;
+    }
+    
     public static void loadConfig(File file)
     {
-        String ctgyGen = Configuration.CATEGORY_GENERAL;
+        config = new Configuration(file);
         
         if (!CommonUtils.isObfuscatedEnv())
         { // debug settings for deobfuscated execution
@@ -46,35 +61,45 @@ public class DirectionHUD
           //                file.delete();
         }
         
-        config = new Configuration(file);
+        syncConfig();
+    }
+    
+    public static void syncConfig()
+    {
+        String ctgyGen = Configuration.CATEGORY_GENERAL;
         
         config.load();
         
-        alignMode = config.getString("alignMode", ctgyGen, alignMode,
-                "Valid alignment strings are topleft, topcenter, topright, middleleft, middlecenter, middleright, bottomleft, bottomcenter, bottomright");
-        markerColor = config.getString("markerColor", ctgyGen, markerColor,
-                "Valid color values are 0-9, a-f (color values can be found here: http://www.minecraftwiki.net/wiki/File:Colors.png)");
-        compassIndex = config.getInt("compassIndex", ctgyGen, compassIndex, 0, 9,
-                "Index of the selected compass in the compass image file starting at 0. Up to 10 compasses can fit in the image (10 would be index 9). Each compass is 24 pixels tall (two lines of height 12).");
-        xOffset = config.getInt("xOffset", ctgyGen, xOffset, Integer.MIN_VALUE, Integer.MAX_VALUE,
-                "Horizontal offset from the edge of the screen (when using right alignments the x offset is relative to the right edge of the screen)");
-        yOffset = config.getInt("yOffset", ctgyGen, yOffset, Integer.MIN_VALUE, Integer.MAX_VALUE,
-                "Vertical offset from the edge of the screen (when using bottom alignments the y offset is relative to the bottom edge of the screen)");
-        yOffsetBottomCenter = config.getInt("yOffsetBottomCenter", ctgyGen, yOffsetBottomCenter, 0, Integer.MAX_VALUE,
-                "Vertical offset used only for the bottomcenter alignment to avoid the vanilla HUD");
-        applyXOffsetToCenter = config.getBoolean("applyXOffsetToCenter", ctgyGen, applyXOffsetToCenter,
-                "Set to true if you want the xOffset value to be applied when using a center alignment");
-        applyYOffsetToMiddle = config.getBoolean("applyYOffsetToMiddle", ctgyGen, applyYOffsetToMiddle,
-                "Set to true if you want the yOffset value to be applied when using a middle alignment");
-        showInChat = config.getBoolean("showInChat", ctgyGen, showInChat,
-                "Set to true to show info when chat is open, false to disable info when chat is open");
+        config.addCustomCategoryComment(ctgyGen, "ATTENTION: Editing this file manually is no longer necessary. \n" +
+                "Type the command '/directionhud config' without the quotes in-game to modify these settings.");
+        
+        enabled = config.getBoolean(ConfigElement.ENABLED.key(), ctgyGen, enabledDefault, ConfigElement.ENABLED.desc(),
+                ConfigElement.ENABLED.languageKey());
+        alignMode = config.getString(ConfigElement.ALIGN_MODE.key(), ctgyGen, alignModeDefault, ConfigElement.ALIGN_MODE.desc(),
+                ConfigElement.ALIGN_MODE.validStrings(), ConfigElement.ALIGN_MODE.languageKey());
+        markerColor = config.getString(ConfigElement.MARKER_COLOR.key(), ctgyGen, markerColorDefault,
+                ConfigElement.MARKER_COLOR.desc(), ConfigElement.MARKER_COLOR.validStrings(), ConfigElement.MARKER_COLOR.languageKey());
+        compassIndex = config.getInt(ConfigElement.COMPASS_INDEX.key(), ctgyGen, compassIndexDefault, 0, 9, ConfigElement.COMPASS_INDEX.desc(),
+                ConfigElement.COMPASS_INDEX.languageKey());
+        xOffset = config.getInt(ConfigElement.X_OFFSET.key(), ctgyGen, xOffsetDefault, Integer.MIN_VALUE, Integer.MAX_VALUE,
+                ConfigElement.X_OFFSET.desc(), ConfigElement.X_OFFSET.languageKey());
+        yOffset = config.getInt(ConfigElement.Y_OFFSET.key(), ctgyGen, yOffsetDefault, Integer.MIN_VALUE, Integer.MAX_VALUE,
+                ConfigElement.Y_OFFSET.desc(), ConfigElement.Y_OFFSET.languageKey());
+        yOffsetBottomCenter = config.getInt(ConfigElement.Y_OFFSET_BOTTOM_CENTER.key(), ctgyGen, yOffsetBottomCenterDefault,
+                Integer.MIN_VALUE, Integer.MAX_VALUE, ConfigElement.Y_OFFSET_BOTTOM_CENTER.desc(), ConfigElement.Y_OFFSET_BOTTOM_CENTER.languageKey());
+        applyXOffsetToCenter = config.getBoolean(ConfigElement.APPLY_X_OFFSET_TO_CENTER.key(), ctgyGen, applyXOffsetToCenterDefault,
+                ConfigElement.APPLY_X_OFFSET_TO_CENTER.desc(), ConfigElement.APPLY_X_OFFSET_TO_CENTER.languageKey());
+        applyYOffsetToMiddle = config.getBoolean(ConfigElement.APPLY_Y_OFFSET_TO_MIDDLE.key(), ctgyGen, applyYOffsetToMiddleDefault,
+                ConfigElement.APPLY_Y_OFFSET_TO_MIDDLE.desc(), ConfigElement.APPLY_Y_OFFSET_TO_MIDDLE.languageKey());
+        showInChat = config.getBoolean(ConfigElement.SHOW_IN_CHAT.key(), ctgyGen, showInChatDefault, ConfigElement.SHOW_IN_CHAT.desc(),
+                ConfigElement.SHOW_IN_CHAT.languageKey());
         
         config.save();
     }
     
     public static boolean onTickInGame(Minecraft mc)
     {
-        if (DirectionHUDMod.instance.isEnabled() && (mc.inGameHasFocus || mc.currentScreen == null || (mc.currentScreen instanceof GuiChat && showInChat))
+        if (enabled && (mc.inGameHasFocus || mc.currentScreen == null || (mc.currentScreen instanceof GuiChat && showInChat))
                 && !mc.gameSettings.showDebugInfo && !mc.gameSettings.keyBindPlayerList.isPressed())
         {
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);

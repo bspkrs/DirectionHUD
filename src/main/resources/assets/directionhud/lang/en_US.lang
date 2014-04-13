@@ -1,0 +1,11 @@
+commands.directionhud.usage=directionhud config
+bspkrs.dh.configgui.enabled=Enabled
+bspkrs.dh.configgui.alignMode=HUD Position
+bspkrs.dh.configgui.markerColor=Center Marker Color
+bspkrs.dh.configgui.compassIndex=Compass Image Index
+bspkrs.dh.configgui.xOffset=Horizontal HUD Offset
+bspkrs.dh.configgui.yOffset=Vertical HUD Offset
+bspkrs.dh.configgui.yOffsetBottomCenter=Bottom Center Vertical HUD Offset
+bspkrs.dh.configgui.applyXOffsetToCenter=Apply Horizontal Offset to Center
+bspkrs.dh.configgui.applyYOffsetToMiddle=Apply Vertical Offset to Middle
+bspkrs.dh.configgui.showInChat=Show While Chat is Open
