@@ -17,7 +17,7 @@ import bspkrs.util.config.Configuration;
 
 public class DirectionHUD
 {
-    public static final String      VERSION_NUMBER              = "1.20(" + Const.MCVERSION + ")";
+    public static final String      VERSION_NUMBER              = "1.21(" + Const.MCVERSION + ")";
     
     protected static float          zLevel                      = -100.0F;
     private static ScaledResolution scaledResolution;
@@ -100,7 +100,7 @@ public class DirectionHUD
     public static boolean onTickInGame(Minecraft mc)
     {
         if (enabled && (mc.inGameHasFocus || mc.currentScreen == null || (mc.currentScreen instanceof GuiChat && showInChat))
-                && !mc.gameSettings.showDebugInfo && !mc.gameSettings.keyBindPlayerList.isPressed())
+                && !mc.gameSettings.showDebugInfo)
         {
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
             scaledResolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);

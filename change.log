@@ -1,61 +1,65 @@
+1.21 - 22-Apr-2014
+- fixed flickering when playerlist is shown
+1.20 - 18-Apr-2014
+- added tooltip localizations
 1.19 - 13-Apr-2014
-- added in-game config gui stuff (command /directionhud config)
+- added in-game config gui stuff - command /directionhud config
 1.18 - 24-Jan-2014
 - added isEnabled control
 1.17 - 19-Jan-2014
 - updated for 1.7.2
-v1.16 (21-Oct-2013)
+1.16 - 21-Oct-2013
 - fixed min values for offsets
-v1.15 (16-Oct-2013)
+1.15 - 16-Oct-2013
 - ported mod to Forge
 - removed filename config option
-v1.14 (10-Jul-2013)
+1.14 - 10-Jul-2013
 - 1.6.2 update
-- 1.6.4 update (20-Sep-2013)
-v1.13 (25-Apr-2013)
+- 1.6.4 update - 20-Sep-2013
+1.13 - 25-Apr-2013
 - fixed texture derp
-- updated to 1.5.2 (03-May-2013)
-v1.12 (24-Apr-2013)
+- updated to 1.5.2 - 03-May-2013
+1.12 - 24-Apr-2013
 - fixed crash derp
-v1.11 (24-Apr-2013)
+1.11 - 24-Apr-2013
 - addressed potential issue from mods that don't clean up their texture bindings
 - new config handler
-v1.10 (20-Feb-2013)
+1.10 - 20-Feb-2013
 - updated to support bspkrsCore
-- updated to 1.5 (15-Mar-2013)
-- updated to 1.5.1 (23-Mar-2013)
-v1.9 (24-Jan-2013)
+- updated to 1.5 - 15-Mar-2013
+- updated to 1.5.1 - 23-Mar-2013
+1.9 - 24-Jan-2013
 - added reset code to end of all drawn text
-v1.8 (01-Nov-2012)
+1.8 - 01-Nov-2012
 - fixed Forge/FML compatibility
-- updated to 1.4.5 (21-Nov-2012)
-- updated to 1.4.6 (23-Dec-2012)
-v1.7 (29-Oct-2012)
+- updated to 1.4.5 - 21-Nov-2012
+- updated to 1.4.6 - 23-Dec-2012
+1.7 - 29-Oct-2012
 - added compassIndex and imageFileName options
-v1.6 (26-Oct-2012)
+1.6 - 26-Oct-2012
 - initial update to 1.4.2
-v1.52(1.2.5) (06-Oct-2012)
+1.52(1.2.5) - 06-Oct-2012
 - retrofitted v1.52 to 1.2.5
-v1.52 (04-Oct-2012)
+1.52 - 04-Oct-2012
 - compatibility update
-v1.51 (17-Sep-2012)
+1.51 - 17-Sep-2012
 - compatibility update
-v1.5 (13-Sep-2012)
+1.5 - 13-Sep-2012
 - switched to shared version checking
 - fixed yOffset alignment issue
-v1.41 (06-Sep-2012)
+1.41 - 06-Sep-2012
 - fixed issues will all alignment modes
 - added config options for x and y offsets and a few controls around that
 - added option to disable the HUD when the chat window is open
-v1.4 (27-Aug-2012)
+1.4 - 27-Aug-2012
 - added config option to allow/disallow version checking
 - now includes mcmod.info file
-v1.3 (19-Aug-2012)
+1.3 - 19-Aug-2012
 - updated for 1.3.2
-v1.2 (05-Aug-2012)
+1.2 - 05-Aug-2012
 - updated for 1.3.1.
 - added version checking.
-v1.1 (21-Apr-2012)
-- Made a change to disable the HUD when the multiplayer list is showing (I found that the top two slots of the list of players were partially obscured by the HUD when positioned at topcenter)
-v1.0 (11-Apr-2012)
+1.1 - 21-Apr-2012
+- Made a change to disable the HUD when the multiplayer list is showing - I found that the top two slots of the list of players were partially obscured by the HUD when positioned at topcenter
+1.0 - 11-Apr-2012
 - Initial release
