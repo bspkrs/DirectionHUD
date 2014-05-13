@@ -31,17 +31,13 @@ public class DHGameTicker
         
         boolean keepTicking = !(mc != null && mc.thePlayer != null && mc.theWorld != null);
         
-        if (bspkrsCoreMod.instance.allowUpdateCheck && !keepTicking)
+        if (!keepTicking && isRegistered)
         {
             if (bspkrsCoreMod.instance.allowUpdateCheck && DirectionHUDMod.instance.versionChecker != null)
                 if (!DirectionHUDMod.instance.versionChecker.isCurrentVersion())
                     for (String msg : DirectionHUDMod.instance.versionChecker.getInGameMessage())
                         EntityPlayerHelper.addChatMessage(mc.thePlayer, new ChatComponentText(msg));
             
-        }
-        
-        if (!keepTicking)
-        {
             FMLCommonHandler.instance().bus().unregister(this);
             isRegistered = false;
         }

@@ -11,14 +11,12 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import bspkrs.client.util.HUDUtils;
+import bspkrs.directionhud.fml.Reference;
 import bspkrs.util.CommonUtils;
-import bspkrs.util.Const;
 import bspkrs.util.config.Configuration;
 
 public class DirectionHUD
 {
-    public static final String      VERSION_NUMBER              = "1.21(" + Const.MCVERSION + ")";
-    
     protected static float          zLevel                      = -100.0F;
     private static ScaledResolution scaledResolution;
     
@@ -44,16 +42,9 @@ public class DirectionHUD
     private final static boolean    showInChatDefault           = true;
     public static boolean           showInChat                  = showInChatDefault;
     
-    private static Configuration    config;
-    
-    public static Configuration getConfig()
+    public static void initConfig(File file)
     {
-        return config;
-    }
-    
-    public static void loadConfig(File file)
-    {
-        config = new Configuration(file);
+        Reference.config = new Configuration(file);
         
         if (!CommonUtils.isObfuscatedEnv())
         { // debug settings for deobfuscated execution
@@ -68,33 +59,33 @@ public class DirectionHUD
     {
         String ctgyGen = Configuration.CATEGORY_GENERAL;
         
-        config.load();
+        Reference.config.load();
         
-        config.addCustomCategoryComment(ctgyGen, "ATTENTION: Editing this file manually is no longer necessary. \n" +
+        Reference.config.addCustomCategoryComment(ctgyGen, "ATTENTION: Editing this file manually is no longer necessary. \n" +
                 "Type the command '/directionhud config' without the quotes in-game to modify these settings.");
         
-        enabled = config.getBoolean(ConfigElement.ENABLED.key(), ctgyGen, enabledDefault, ConfigElement.ENABLED.desc(),
+        enabled = Reference.config.getBoolean(ConfigElement.ENABLED.key(), ctgyGen, enabledDefault, ConfigElement.ENABLED.desc(),
                 ConfigElement.ENABLED.languageKey());
-        alignMode = config.getString(ConfigElement.ALIGN_MODE.key(), ctgyGen, alignModeDefault, ConfigElement.ALIGN_MODE.desc(),
+        alignMode = Reference.config.getString(ConfigElement.ALIGN_MODE.key(), ctgyGen, alignModeDefault, ConfigElement.ALIGN_MODE.desc(),
                 ConfigElement.ALIGN_MODE.validStrings(), ConfigElement.ALIGN_MODE.languageKey());
-        markerColor = config.getString(ConfigElement.MARKER_COLOR.key(), ctgyGen, markerColorDefault,
+        markerColor = Reference.config.getString(ConfigElement.MARKER_COLOR.key(), ctgyGen, markerColorDefault,
                 ConfigElement.MARKER_COLOR.desc(), ConfigElement.MARKER_COLOR.validStrings(), ConfigElement.MARKER_COLOR.languageKey());
-        compassIndex = config.getInt(ConfigElement.COMPASS_INDEX.key(), ctgyGen, compassIndexDefault, 0, 9, ConfigElement.COMPASS_INDEX.desc(),
+        compassIndex = Reference.config.getInt(ConfigElement.COMPASS_INDEX.key(), ctgyGen, compassIndexDefault, 0, 9, ConfigElement.COMPASS_INDEX.desc(),
                 ConfigElement.COMPASS_INDEX.languageKey());
-        xOffset = config.getInt(ConfigElement.X_OFFSET.key(), ctgyGen, xOffsetDefault, Integer.MIN_VALUE, Integer.MAX_VALUE,
+        xOffset = Reference.config.getInt(ConfigElement.X_OFFSET.key(), ctgyGen, xOffsetDefault, Integer.MIN_VALUE, Integer.MAX_VALUE,
                 ConfigElement.X_OFFSET.desc(), ConfigElement.X_OFFSET.languageKey());
-        yOffset = config.getInt(ConfigElement.Y_OFFSET.key(), ctgyGen, yOffsetDefault, Integer.MIN_VALUE, Integer.MAX_VALUE,
+        yOffset = Reference.config.getInt(ConfigElement.Y_OFFSET.key(), ctgyGen, yOffsetDefault, Integer.MIN_VALUE, Integer.MAX_VALUE,
                 ConfigElement.Y_OFFSET.desc(), ConfigElement.Y_OFFSET.languageKey());
-        yOffsetBottomCenter = config.getInt(ConfigElement.Y_OFFSET_BOTTOM_CENTER.key(), ctgyGen, yOffsetBottomCenterDefault,
+        yOffsetBottomCenter = Reference.config.getInt(ConfigElement.Y_OFFSET_BOTTOM_CENTER.key(), ctgyGen, yOffsetBottomCenterDefault,
                 Integer.MIN_VALUE, Integer.MAX_VALUE, ConfigElement.Y_OFFSET_BOTTOM_CENTER.desc(), ConfigElement.Y_OFFSET_BOTTOM_CENTER.languageKey());
-        applyXOffsetToCenter = config.getBoolean(ConfigElement.APPLY_X_OFFSET_TO_CENTER.key(), ctgyGen, applyXOffsetToCenterDefault,
+        applyXOffsetToCenter = Reference.config.getBoolean(ConfigElement.APPLY_X_OFFSET_TO_CENTER.key(), ctgyGen, applyXOffsetToCenterDefault,
                 ConfigElement.APPLY_X_OFFSET_TO_CENTER.desc(), ConfigElement.APPLY_X_OFFSET_TO_CENTER.languageKey());
-        applyYOffsetToMiddle = config.getBoolean(ConfigElement.APPLY_Y_OFFSET_TO_MIDDLE.key(), ctgyGen, applyYOffsetToMiddleDefault,
+        applyYOffsetToMiddle = Reference.config.getBoolean(ConfigElement.APPLY_Y_OFFSET_TO_MIDDLE.key(), ctgyGen, applyYOffsetToMiddleDefault,
                 ConfigElement.APPLY_Y_OFFSET_TO_MIDDLE.desc(), ConfigElement.APPLY_Y_OFFSET_TO_MIDDLE.languageKey());
-        showInChat = config.getBoolean(ConfigElement.SHOW_IN_CHAT.key(), ctgyGen, showInChatDefault, ConfigElement.SHOW_IN_CHAT.desc(),
+        showInChat = Reference.config.getBoolean(ConfigElement.SHOW_IN_CHAT.key(), ctgyGen, showInChatDefault, ConfigElement.SHOW_IN_CHAT.desc(),
                 ConfigElement.SHOW_IN_CHAT.languageKey());
         
-        config.save();
+        Reference.config.save();
     }
     
     public static boolean onTickInGame(Minecraft mc)
