@@ -1,6 +1,7 @@
 package bspkrs.directionhud;
 
 import java.io.File;
+import java.util.LinkedHashSet;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
@@ -64,26 +65,40 @@ public class DirectionHUD
         Reference.config.addCustomCategoryComment(ctgyGen, "ATTENTION: Editing this file manually is no longer necessary. \n" +
                 "Type the command '/directionhud config' without the quotes in-game to modify these settings.");
         
+        LinkedHashSet<String> orderedKeys = new LinkedHashSet<String>(ConfigElement.values().length);
+        
         enabled = Reference.config.getBoolean(ConfigElement.ENABLED.key(), ctgyGen, enabledDefault, ConfigElement.ENABLED.desc(),
                 ConfigElement.ENABLED.languageKey());
+        orderedKeys.add(ConfigElement.ENABLED.key());
         alignMode = Reference.config.getString(ConfigElement.ALIGN_MODE.key(), ctgyGen, alignModeDefault, ConfigElement.ALIGN_MODE.desc(),
                 ConfigElement.ALIGN_MODE.validStrings(), ConfigElement.ALIGN_MODE.languageKey());
+        orderedKeys.add(ConfigElement.ALIGN_MODE.key());
         markerColor = Reference.config.getString(ConfigElement.MARKER_COLOR.key(), ctgyGen, markerColorDefault,
                 ConfigElement.MARKER_COLOR.desc(), ConfigElement.MARKER_COLOR.validStrings(), ConfigElement.MARKER_COLOR.languageKey());
+        orderedKeys.add(ConfigElement.MARKER_COLOR.key());
         compassIndex = Reference.config.getInt(ConfigElement.COMPASS_INDEX.key(), ctgyGen, compassIndexDefault, 0, 9, ConfigElement.COMPASS_INDEX.desc(),
                 ConfigElement.COMPASS_INDEX.languageKey());
-        xOffset = Reference.config.getInt(ConfigElement.X_OFFSET.key(), ctgyGen, xOffsetDefault, Integer.MIN_VALUE, Integer.MAX_VALUE,
-                ConfigElement.X_OFFSET.desc(), ConfigElement.X_OFFSET.languageKey());
-        yOffset = Reference.config.getInt(ConfigElement.Y_OFFSET.key(), ctgyGen, yOffsetDefault, Integer.MIN_VALUE, Integer.MAX_VALUE,
-                ConfigElement.Y_OFFSET.desc(), ConfigElement.Y_OFFSET.languageKey());
-        yOffsetBottomCenter = Reference.config.getInt(ConfigElement.Y_OFFSET_BOTTOM_CENTER.key(), ctgyGen, yOffsetBottomCenterDefault,
-                Integer.MIN_VALUE, Integer.MAX_VALUE, ConfigElement.Y_OFFSET_BOTTOM_CENTER.desc(), ConfigElement.Y_OFFSET_BOTTOM_CENTER.languageKey());
-        applyXOffsetToCenter = Reference.config.getBoolean(ConfigElement.APPLY_X_OFFSET_TO_CENTER.key(), ctgyGen, applyXOffsetToCenterDefault,
-                ConfigElement.APPLY_X_OFFSET_TO_CENTER.desc(), ConfigElement.APPLY_X_OFFSET_TO_CENTER.languageKey());
-        applyYOffsetToMiddle = Reference.config.getBoolean(ConfigElement.APPLY_Y_OFFSET_TO_MIDDLE.key(), ctgyGen, applyYOffsetToMiddleDefault,
-                ConfigElement.APPLY_Y_OFFSET_TO_MIDDLE.desc(), ConfigElement.APPLY_Y_OFFSET_TO_MIDDLE.languageKey());
+        orderedKeys.add(ConfigElement.COMPASS_INDEX.key());
         showInChat = Reference.config.getBoolean(ConfigElement.SHOW_IN_CHAT.key(), ctgyGen, showInChatDefault, ConfigElement.SHOW_IN_CHAT.desc(),
                 ConfigElement.SHOW_IN_CHAT.languageKey());
+        orderedKeys.add(ConfigElement.SHOW_IN_CHAT.key());
+        xOffset = Reference.config.getInt(ConfigElement.X_OFFSET.key(), ctgyGen, xOffsetDefault, Integer.MIN_VALUE, Integer.MAX_VALUE,
+                ConfigElement.X_OFFSET.desc(), ConfigElement.X_OFFSET.languageKey());
+        orderedKeys.add(ConfigElement.X_OFFSET.key());
+        applyXOffsetToCenter = Reference.config.getBoolean(ConfigElement.APPLY_X_OFFSET_TO_CENTER.key(), ctgyGen, applyXOffsetToCenterDefault,
+                ConfigElement.APPLY_X_OFFSET_TO_CENTER.desc(), ConfigElement.APPLY_X_OFFSET_TO_CENTER.languageKey());
+        orderedKeys.add(ConfigElement.APPLY_X_OFFSET_TO_CENTER.key());
+        yOffset = Reference.config.getInt(ConfigElement.Y_OFFSET.key(), ctgyGen, yOffsetDefault, Integer.MIN_VALUE, Integer.MAX_VALUE,
+                ConfigElement.Y_OFFSET.desc(), ConfigElement.Y_OFFSET.languageKey());
+        orderedKeys.add(ConfigElement.Y_OFFSET.key());
+        applyYOffsetToMiddle = Reference.config.getBoolean(ConfigElement.APPLY_Y_OFFSET_TO_MIDDLE.key(), ctgyGen, applyYOffsetToMiddleDefault,
+                ConfigElement.APPLY_Y_OFFSET_TO_MIDDLE.desc(), ConfigElement.APPLY_Y_OFFSET_TO_MIDDLE.languageKey());
+        orderedKeys.add(ConfigElement.APPLY_Y_OFFSET_TO_MIDDLE.key());
+        yOffsetBottomCenter = Reference.config.getInt(ConfigElement.Y_OFFSET_BOTTOM_CENTER.key(), ctgyGen, yOffsetBottomCenterDefault,
+                Integer.MIN_VALUE, Integer.MAX_VALUE, ConfigElement.Y_OFFSET_BOTTOM_CENTER.desc(), ConfigElement.Y_OFFSET_BOTTOM_CENTER.languageKey());
+        orderedKeys.add(ConfigElement.Y_OFFSET_BOTTOM_CENTER.key());
+        
+        Reference.config.setCategoryPropertyOrder(ctgyGen, orderedKeys);
         
         Reference.config.save();
     }
