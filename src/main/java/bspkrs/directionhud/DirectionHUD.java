@@ -1,7 +1,8 @@
 package bspkrs.directionhud;
 
 import java.io.File;
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
@@ -62,10 +63,10 @@ public class DirectionHUD
         
         Reference.config.load();
         
-        Reference.config.addCustomCategoryComment(ctgyGen, "ATTENTION: Editing this file manually is no longer necessary. \n" +
+        Reference.config.setCategoryComment(ctgyGen, "ATTENTION: Editing this file manually is no longer necessary. \n" +
                 "Type the command '/directionhud config' without the quotes in-game to modify these settings.");
         
-        LinkedHashSet<String> orderedKeys = new LinkedHashSet<String>(ConfigElement.values().length);
+        List<String> orderedKeys = new ArrayList<String>(ConfigElement.values().length);
         
         enabled = Reference.config.getBoolean(ConfigElement.ENABLED.key(), ctgyGen, enabledDefault, ConfigElement.ENABLED.desc(),
                 ConfigElement.ENABLED.languageKey());

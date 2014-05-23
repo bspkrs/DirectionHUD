@@ -3,7 +3,6 @@ package bspkrs.directionhud.fml;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 import bspkrs.bspkrscore.fml.bspkrsCoreMod;
-import bspkrs.helpers.entity.player.EntityPlayerHelper;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
@@ -36,7 +35,7 @@ public class DHGameTicker
             if (bspkrsCoreMod.instance.allowUpdateCheck && DirectionHUDMod.instance.versionChecker != null)
                 if (!DirectionHUDMod.instance.versionChecker.isCurrentVersion())
                     for (String msg : DirectionHUDMod.instance.versionChecker.getInGameMessage())
-                        EntityPlayerHelper.addChatMessage(mc.thePlayer, new ChatComponentText(msg));
+                        mc.thePlayer.addChatMessage(new ChatComponentText(msg));
             
             FMLCommonHandler.instance().bus().unregister(this);
             isRegistered = false;
