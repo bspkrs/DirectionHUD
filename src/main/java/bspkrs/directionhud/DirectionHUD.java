@@ -9,13 +9,13 @@ import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.config.Configuration;
 
 import org.lwjgl.opengl.GL11;
 
 import bspkrs.client.util.HUDUtils;
 import bspkrs.directionhud.fml.Reference;
 import bspkrs.util.CommonUtils;
-import bspkrs.util.config.Configuration;
 
 public class DirectionHUD
 {
@@ -63,7 +63,7 @@ public class DirectionHUD
         
         Reference.config.load();
         
-        Reference.config.setCategoryComment(ctgyGen, "ATTENTION: Editing this file manually is no longer necessary. \n" +
+        Reference.config.addCustomCategoryComment(ctgyGen, "ATTENTION: Editing this file manually is no longer necessary. \n" +
                 "Type the command '/directionhud config' without the quotes in-game to modify these settings.");
         
         List<String> orderedKeys = new ArrayList<String>(ConfigElement.values().length);
