@@ -110,7 +110,7 @@ public class DirectionHUD
                 && !mc.gameSettings.showDebugInfo)
         {
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-            scaledResolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+            scaledResolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
             displayHUD(mc);
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         }
