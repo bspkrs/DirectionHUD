@@ -8,6 +8,7 @@ import cpw.mods.fml.client.config.GuiConfig;
 
 public class GuiDHConfig extends GuiConfig
 {
+    @SuppressWarnings("rawtypes")
     public GuiDHConfig(GuiScreen parent)
     {
         super(parent, (new ConfigElement(Reference.config.getCategory(Configuration.CATEGORY_GENERAL))).getChildElements(),
