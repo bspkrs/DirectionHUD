@@ -9,6 +9,6 @@ public class Reference
     public static final String  PROXY_COMMON = "bspkrs.directionhud.fml.CommonProxy";
     public static final String  PROXY_CLIENT = "bspkrs.directionhud.fml.ClientProxy";
     public static final String  GUI_FACTORY  = "bspkrs.directionhud.fml.gui.ModGuiFactoryHandler";
-    
+
     public static Configuration config       = null;
 }

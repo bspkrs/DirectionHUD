@@ -18,24 +18,24 @@ public class ClientProxy extends CommonProxy
     {
         DirectionHUD.initConfig(event.getSuggestedConfigurationFile());
     }
-    
+
     @Override
     public void init(FMLInitializationEvent event)
     {
         FMLCommonHandler.instance().bus().register(new DHGameTicker());
         FMLCommonHandler.instance().bus().register(new DHRenderTicker());
-        
+
         ClientCommandHandler.instance.registerCommand(new CommandDirectionHUD());
-        
+
         FMLCommonHandler.instance().bus().register(this);
-        
+
         if (bspkrsCoreMod.instance.allowUpdateCheck)
         {
             DirectionHUDMod.instance.versionChecker = new ModVersionChecker(Reference.MODID, DirectionHUDMod.metadata.version, DirectionHUDMod.instance.versionURL, DirectionHUDMod.instance.mcfTopic);
             DirectionHUDMod.instance.versionChecker.checkVersionWithLogging();
         }
     }
-    
+
     @SubscribeEvent
     public void onConfigChanged(OnConfigChangedEvent event)
     {

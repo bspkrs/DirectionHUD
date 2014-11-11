@@ -18,23 +18,23 @@ public class DirectionHUDMod
     protected ModVersionChecker   versionChecker;
     protected final String        versionURL = Const.VERSION_URL + "/Minecraft/" + Const.MCVERSION + "/directionHUD.version";
     protected final String        mcfTopic   = "http://www.minecraftforum.net/topic/1114612-";
-    
+
     @Metadata(value = Reference.MODID)
     public static ModMetadata     metadata;
-    
+
     @Instance(value = Reference.MODID)
     public static DirectionHUDMod instance;
-    
+
     @SidedProxy(clientSide = Reference.PROXY_CLIENT, serverSide = Reference.PROXY_COMMON)
     public static CommonProxy     proxy;
-    
+
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
         metadata = event.getModMetadata();
         proxy.preInit(event);
     }
-    
+
     @EventHandler
     public void init(FMLInitializationEvent event)
     {

@@ -21,7 +21,7 @@ public class DirectionHUD
 {
     protected static float          zLevel                      = -100.0F;
     private static ScaledResolution scaledResolution;
-    
+
     // Config fields
     private final static boolean    enabledDefault              = true;
     public static boolean           enabled                     = enabledDefault;
@@ -43,31 +43,31 @@ public class DirectionHUD
     public static boolean           applyYOffsetToMiddle        = applyYOffsetToMiddleDefault;
     private final static boolean    showInChatDefault           = true;
     public static boolean           showInChat                  = showInChatDefault;
-    
+
     public static void initConfig(File file)
     {
         Reference.config = new Configuration(file);
-        
+
         if (!CommonUtils.isObfuscatedEnv())
         { // debug settings for deobfuscated execution
           //            if (file.exists())
           //                file.delete();
         }
-        
+
         syncConfig();
     }
-    
+
     public static void syncConfig()
     {
         String ctgyGen = Configuration.CATEGORY_GENERAL;
-        
+
         Reference.config.load();
-        
+
         Reference.config.addCustomCategoryComment(ctgyGen, "ATTENTION: Editing this file manually is no longer necessary. \n" +
                 "Type the command '/directionhud config' without the quotes in-game to modify these settings.");
-        
+
         List<String> orderedKeys = new ArrayList<String>(ConfigElement.values().length);
-        
+
         enabled = Reference.config.getBoolean(ConfigElement.ENABLED.key(), ctgyGen, enabledDefault, ConfigElement.ENABLED.desc(),
                 ConfigElement.ENABLED.languageKey());
         orderedKeys.add(ConfigElement.ENABLED.key());
@@ -98,12 +98,12 @@ public class DirectionHUD
         yOffsetBottomCenter = Reference.config.getInt(ConfigElement.Y_OFFSET_BOTTOM_CENTER.key(), ctgyGen, yOffsetBottomCenterDefault,
                 Integer.MIN_VALUE, Integer.MAX_VALUE, ConfigElement.Y_OFFSET_BOTTOM_CENTER.desc(), ConfigElement.Y_OFFSET_BOTTOM_CENTER.languageKey());
         orderedKeys.add(ConfigElement.Y_OFFSET_BOTTOM_CENTER.key());
-        
+
         Reference.config.setCategoryPropertyOrder(ctgyGen, orderedKeys);
-        
+
         Reference.config.save();
     }
-    
+
     public static boolean onTickInGame(Minecraft mc)
     {
         if (enabled && (mc.inGameHasFocus || mc.currentScreen == null || (mc.currentScreen instanceof GuiChat && showInChat))
@@ -114,10 +114,10 @@ public class DirectionHUD
             displayHUD(mc);
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         }
-        
+
         return true;
     }
-    
+
     private static int getX(int width)
     {
         if (alignMode.equalsIgnoreCase("topcenter") || alignMode.equalsIgnoreCase("middlecenter") || alignMode.equalsIgnoreCase("bottomcenter"))
@@ -127,7 +127,7 @@ public class DirectionHUD
         else
             return xOffset;
     }
-    
+
     private static int getY(int rowCount, int height)
     {
         if (alignMode.equalsIgnoreCase("middleleft") || alignMode.equalsIgnoreCase("middlecenter") || alignMode.equalsIgnoreCase("middleright"))
@@ -139,22 +139,22 @@ public class DirectionHUD
         else
             return yOffset;
     }
-    
+
     private static void displayHUD(Minecraft mc)
     {
         int direction = MathHelper.floor_double(((mc.thePlayer.rotationYaw * 256F) / 360F) + 0.5D) & 255;
-        
+
         int yBase = getY(1, 12);
         int xBase = getX(65);
-        
+
         mc.getTextureManager().bindTexture(new ResourceLocation("DirectionHUD:textures/gui/compass.png"));
         if (direction < 128)
             HUDUtils.drawTexturedModalRect(xBase, yBase, direction, (compassIndex * 24), 65, 12, zLevel);
         else
             HUDUtils.drawTexturedModalRect(xBase, yBase, direction - 128, (compassIndex * 24) + 12, 65, 12, zLevel);
-        
+
         //mc.renderEngine.resetBoundTexture();
-        mc.fontRenderer.drawString("\247" + markerColor.toLowerCase() + "|", xBase + 32, yBase + 1, 0xffffff);
-        mc.fontRenderer.drawString("\247" + markerColor.toLowerCase() + "|\247r", xBase + 32, yBase + 5, 0xffffff);
+        mc.fontRendererObj.drawString("\247" + markerColor.toLowerCase() + "|", xBase + 32, yBase + 1, 0xffffff);
+        mc.fontRendererObj.drawString("\247" + markerColor.toLowerCase() + "|\247r", xBase + 32, yBase + 5, 0xffffff);
     }
 }
