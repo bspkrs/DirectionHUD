@@ -3,12 +3,11 @@ package bspkrs.directionhud.fml.gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.client.config.GuiConfig;
 import bspkrs.directionhud.fml.Reference;
-import cpw.mods.fml.client.config.GuiConfig;
 
 public class GuiDHConfig extends GuiConfig
 {
-    @SuppressWarnings("rawtypes")
     public GuiDHConfig(GuiScreen parent)
     {
         super(parent, (new ConfigElement(Reference.config.getCategory(Configuration.CATEGORY_GENERAL))).getChildElements(),
