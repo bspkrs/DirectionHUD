@@ -1,7 +1,9 @@
 package bspkrs.directionhud;
 
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.server.MinecraftServer;
 import bspkrs.directionhud.fml.gui.GuiDHConfig;
 import bspkrs.fml.util.DelayedGuiDisplayTicker;
 
@@ -20,7 +22,7 @@ public class CommandDirectionHUD extends CommandBase
     }
 
     @Override
-    public boolean canCommandSenderUseCommand(ICommandSender par1ICommandSender)
+    public boolean checkPermission(MinecraftServer server, ICommandSender sender)
     {
         return true;
     }
@@ -32,7 +34,7 @@ public class CommandDirectionHUD extends CommandBase
     }
 
     @Override
-    public void processCommand(ICommandSender var1, String[] var2)
+    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException
     {
         try
         {
@@ -43,4 +45,5 @@ public class CommandDirectionHUD extends CommandBase
             e.printStackTrace();
         }
     }
+
 }
