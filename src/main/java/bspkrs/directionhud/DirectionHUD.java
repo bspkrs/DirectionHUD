@@ -7,7 +7,7 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Configuration;
 
@@ -110,7 +110,7 @@ public class DirectionHUD
                 && !mc.gameSettings.showDebugInfo)
         {
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-            scaledResolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+            scaledResolution = new ScaledResolution(mc);
             displayHUD(mc);
             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         }
